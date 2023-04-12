@@ -1,0 +1,42 @@
+@media screen and (min-width: 120rem) {
+  .appshowcase-container {
+    max-width: 100rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.7rem 0;
+
+    &__bottom {
+      max-width: 100rem;
+      width: 100%;
+      margin: 0 auto;
+      padding: 6rem 0;
+    }
+  }
+
+}
+@media screen and (max-width: 37.5rem) {
+  .appshowcase-container {
+    .header {
+      font-size: 6vw;
+    }
+    .para {
+        font-size: 3vw;
+    }
+  }
+}
+@media screen and (max-width: 50.75rem) {
+  .appshowcase-container {
+    padding: 1.7rem 1rem;
+
+    .div {
+        width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width:62.5rem) {
+  .appshowcase-container__bottom-infoo {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}

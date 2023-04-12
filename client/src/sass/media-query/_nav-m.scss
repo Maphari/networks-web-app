@@ -1,0 +1,28 @@
+@media screen and (min-width:120rem) {
+  .navigation-container {
+    &-inner {
+      max-width: 100rem;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media screen and (max-width: 68.438rem) {
+  .navigation-container {
+    &__info {
+      &-header {
+        font-size: 3vw;
+      }
+      p {
+        font-size: 2vw;
+      }
+    }
+  }
+}
+
+@media screen and (max-width:50.75rem) {
+  .navigation-container {
+    padding: 1.7rem 0;
+  }
+}

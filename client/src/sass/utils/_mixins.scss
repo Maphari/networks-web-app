@@ -1,0 +1,31 @@
+@mixin buttonLoader {
+    &:hover::before,
+    &:hover::after {
+      content: "";
+      position: absolute;
+      width: 50%;
+      height: 3px;
+      z-index: 10;
+      background-color: $PRIMARY-COLOR;
+      transition: all 800ms ease-in-out;
+      animation: link 700ms ease-in-out;
+    }
+
+    &:hover::before {
+      top: 0;
+      left: 0;
+    }
+    &:hover::after {
+      bottom: 0;
+      right: 0;
+    }
+
+    @keyframes link {
+      0% {
+        width: 0;
+      }
+      100% {
+        width: 50%;
+      }
+    }
+}

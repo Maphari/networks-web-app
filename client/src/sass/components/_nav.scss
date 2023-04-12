@@ -1,0 +1,50 @@
+.navigation-container {
+  padding: 1.7rem 5rem;
+  // background-image: $BACKGROUND-IMAGE-PRIMARY;
+  clip-path: $CLIP-PATH-PRIMARY;
+  // height: 53vh;
+  color: $WHITE-COLOR;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: repeat;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 1500 1100%22 xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cmask id=%22b%22 x=%220%22 y=%220%22 width=%221500%22 height=%221100%22%3E%3Cpath fill=%22url(%23a)%22 d=%22M0 0h1500v1100H0z%22%2F%3E%3C%2Fmask%3E%3Cpath fill=%22%23000336%22 d=%22M0 0h1500v1100H0z%22%2F%3E%3Cg style=%22transform-origin:center center%22 stroke=%22%234c4e72%22 stroke-width=%221.2%22 mask=%22url(%23b)%22%3E%3Cpath fill=%22none%22 d=%22M0 0h83v83H0zM166 0h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72db%22 d=%22M332 0h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M415 0h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7290%22 d=%22M498 0h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M581 0h83v83h-83zM664 0h83v83h-83zM913 0h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7251%22 d=%22M996 0h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1079 0h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72d4%22 d=%22M1162 0h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1245 0h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7237%22 d=%22M1328 0h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1411 0h83v83h-83zM0 83h83v83H0z%22%2F%3E%3Cpath fill=%22%234c4e728b%22 d=%22M166 83h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M249 83h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72fd%22 d=%22M332 83h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72ab%22 d=%22M415 83h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M498 83h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72bf%22 d=%22M747 83h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M830 83h83v83h-83zM913 83h83v83h-83zM996 83h83v83h-83zM1328 83h83v83h-83zM1411 83h83v83h-83zM0 166h83v83H0z%22%2F%3E%3Cpath fill=%22%234c4e72c7%22 d=%22M83 166h83v83H83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M249 166h83v83h-83zM332 166h83v83h-83zM415 166h83v83h-83zM498 166h83v83h-83zM581 166h83v83h-83zM664 166h83v83h-83zM747 166h83v83h-83zM830 166h83v83h-83zM913 166h83v83h-83zM1079 166h83v83h-83zM1162 166h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e727f%22 d=%22M1245 166h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1328 166h83v83h-83zM0 249h83v83H0zM166 249h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e725a%22 d=%22M249 249h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M332 249h83v83h-83zM415 249h83v83h-83zM498 249h83v83h-83zM581 249h83v83h-83zM747 249h83v83h-83zM830 249h83v83h-83zM1079 249h83v83h-83zM1162 249h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7291%22 d=%22M1328 249h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M0 332h83v83H0zM166 332h83v83h-83zM249 332h83v83h-83zM332 332h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72da%22 d=%22M415 332h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7236%22 d=%22M498 332h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M581 332h83v83h-83zM664 332h83v83h-83zM747 332h83v83h-83zM830 332h83v83h-83zM913 332h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7297%22 d=%22M996 332h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1079 332h83v83h-83zM1245 332h83v83h-83zM1328 332h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e720f%22 d=%22M1411 332h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M83 415h83v83H83zM166 415h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7217%22 d=%22M249 415h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72ca%22 d=%22M332 415h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M415 415h83v83h-83zM830 415h83v83h-83zM913 415h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7248%22 d=%22M996 415h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7264%22 d=%22M1079 415h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e727e%22 d=%22M1245 415h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1328 415h83v83h-83zM1411 415h83v83h-83zM0 498h83v83H0z%22%2F%3E%3Cpath fill=%22%234c4e72fb%22 d=%22M83 498h83v83H83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M166 498h83v83h-83zM249 498h83v83h-83zM332 498h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e726b%22 d=%22M415 498h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M581 498h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72b6%22 d=%22M747 498h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e722b%22 d=%22M830 498h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M913 498h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7212%22 d=%22M996 498h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e722d%22 d=%22M1162 498h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e729b%22 d=%22M1328 498h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72d0%22 d=%22M1411 498h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7206%22 d=%22M83 581h83v83H83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M166 581h83v83h-83zM249 581h83v83h-83zM332 581h83v83h-83zM415 581h83v83h-83zM498 581h83v83h-83zM581 581h83v83h-83zM747 581h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72f2%22 d=%22M830 581h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M913 581h83v83h-83zM996 581h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e727e%22 d=%22M1079 581h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1245 581h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7219%22 d=%22M1328 581h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7237%22 d=%22M0 664h83v83H0z%22%2F%3E%3Cpath fill=%22none%22 d=%22M166 664h83v83h-83zM332 664h83v83h-83zM747 664h83v83h-83zM830 664h83v83h-83zM913 664h83v83h-83zM996 664h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72ad%22 d=%22M1079 664h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1162 664h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72b4%22 d=%22M1245 664h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1328 664h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72c7%22 d=%22M1411 664h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M0 747h83v83H0z%22%2F%3E%3Cpath fill=%22%234c4e729e%22 d=%22M83 747h83v83H83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M166 747h83v83h-83zM332 747h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7264%22 d=%22M415 747h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M498 747h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7225%22 d=%22M581 747h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M664 747h83v83h-83zM747 747h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e721c%22 d=%22M830 747h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e727a%22 d=%22M913 747h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M996 747h83v83h-83zM1079 747h83v83h-83zM1245 747h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72dd%22 d=%22M0 830h83v83H0z%22%2F%3E%3Cpath fill=%22none%22 d=%22M83 830h83v83H83zM166 830h83v83h-83zM332 830h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72d8%22 d=%22M415 830h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M498 830h83v83h-83zM581 830h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7207%22 d=%22M664 830h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72cb%22 d=%22M747 830h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M830 830h83v83h-83zM913 830h83v83h-83zM996 830h83v83h-83zM1079 830h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72cb%22 d=%22M1162 830h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1328 830h83v83h-83zM1411 830h83v83h-83zM0 913h83v83H0z%22%2F%3E%3Cpath fill=%22%234c4e7292%22 d=%22M83 913h83v83H83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M166 913h83v83h-83zM249 913h83v83h-83zM332 913h83v83h-83zM415 913h83v83h-83zM581 913h83v83h-83zM664 913h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7240%22 d=%22M747 913h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7252%22 d=%22M830 913h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M913 913h83v83h-83zM996 913h83v83h-83zM1079 913h83v83h-83zM1162 913h83v83h-83zM1245 913h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7299%22 d=%22M1328 913h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72a5%22 d=%22M1411 913h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M0 996h83v83H0zM249 996h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7247%22 d=%22M415 996h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M498 996h83v83h-83zM581 996h83v83h-83zM747 996h83v83h-83zM830 996h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7294%22 d=%22M913 996h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M996 996h83v83h-83zM1079 996h83v83h-83zM1328 996h83v83h-83zM0 1079h83v83H0zM83 1079h83v83H83zM166 1079h83v83h-83zM249 1079h83v83h-83zM332 1079h83v83h-83zM415 1079h83v83h-83zM498 1079h83v83h-83zM747 1079h83v83h-83zM830 1079h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e724d%22 d=%22M913 1079h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M996 1079h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7244%22 d=%22M1079 1079h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1162 1079h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e7239%22 d=%22M1245 1079h83v83h-83z%22%2F%3E%3Cpath fill=%22%234c4e72b6%22 d=%22M1328 1079h83v83h-83z%22%2F%3E%3Cpath fill=%22none%22 d=%22M1411 1079h83v83h-83z%22%2F%3E%3C%2Fg%3E%3Cdefs%3E%3CradialGradient id=%22a%22%3E%3Cstop offset=%220%22 stop-color=%22%23fff%22%2F%3E%3Cstop offset=%221%22 stop-color=%22%23fff%22 stop-opacity=%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3C%2Fsvg%3E");
+
+  &-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .link {
+      position: relative;
+
+     @include buttonLoader;
+    }
+  }
+
+  &__info {
+    text-align: center;
+
+    &-header {
+      font-size: 2.4rem;
+    }
+    .socials {
+      i:first-child:hover {
+        background-color: #4267b2;
+      }
+      i:nth-child(2):hover {
+        background-image: linear-gradient(to left bottom, #405DE6, #833AB4, #C13584, #FD1D1D, #FFDC80);
+      }
+      i:nth-child(3):hover {
+        background-color: #1DA1F2;
+      }
+      i:last-child:hover {
+        background-color: #FF0000;
+      }
+    }
+  }
+}
+
+// GLOBAL STYLES
+.color {
+  color: $PRIMARY-COLOR;
+}

@@ -1,0 +1,62 @@
+@media screen and (min-width: 120rem) {
+  .laptop-container,
+  .fotter-container {
+    max-width: 100rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.7rem 0;
+  }
+ 
+}
+
+@media screen and (max-width: 62.5rem) {
+  .bankaccount-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .bank-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+  .laptop-container {
+    text-align: center;
+    gap: 0;
+    margin: 0;
+
+    .inner {
+      width: 100%;
+    }
+
+    .a {
+      margin: 0 auto;
+      width: 50%;
+    }
+    .inner-head {
+        font-size: 6vw !important;
+    }
+    .inner-para {
+        font-size: 3vw;
+    }
+  }
+  .fotter-container {
+    padding: 1rem 2rem;
+    .main-para {
+      font-size: 4.5vw;
+    }
+  }
+}
+
+@media screen and (max-width: 50.75rem) {
+  .laptop-container {
+    margin: 1.7rem 1rem;
+  }
+  .bankaccount-container {
+    padding: 1.7rem 1rem 5rem;
+  }
+}

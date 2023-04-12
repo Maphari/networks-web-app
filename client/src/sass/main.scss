@@ -1,0 +1,53 @@
+@import "./tailwind.scss";
+//  VARIABLES
+@import "./utils/variables";
+@import "./utils/mixins";
+// COMPONENTS
+@import "./components/nav";
+@import "./components/appshowcase";
+@import "./components/appfeatures";
+@import "./components/bankaccount";
+@import "./components/footer";
+@import "./components/signup";
+@import "./components/buttons";
+@import "./components/loader";
+// PAGES
+
+// MEDIA QUERY
+@import "./media-query/nav-m";
+@import "./media-query/showcase-m";
+@import "./media-query/laptop-m";
+
+// GLOBAL STYLES
+body {
+  font-family: "Poppins", sans-serif;
+}
+/* Set the width and height of the scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Set the background color of the scrollbar track */
+::-webkit-scrollbar-track {
+  background-image: $BACKGROUND-IMAGE-PRIMARY;
+}
+
+/* Set the color and rounded corners of the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: $PRIMARY-COLOR;
+}
+
+/* Set the color and rounded corners of the scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+a:hover {
+  color: #fff;
+}
+
+.aa {
+  position: relative;
+  @include buttonLoader;
+}
