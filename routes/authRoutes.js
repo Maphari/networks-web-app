@@ -7,6 +7,14 @@ const User = mongoose.model("User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const isAuthenticated = (req, res, next) => {
+  if (req.session.user || req.user) {
+    next();
+  } else {
+    res.json({ message: "notAllowed" });
+  }
+};
+
 // GOOGLE AUTH ROUTEAS
 route.get(
   "/api/auth/google",
@@ -15,57 +23,87 @@ route.get(
 route.get(
   "/api/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: process.env.FRONTEND_END_POINT + "/home",
+    successRedirect: process.env.FRONTEND_END_POINT + "/dashboard",
     failureRedirect: process.env.FRONTEND_END_POINT + "/login",
   })
 );
-route.get("/api/auth/google_succsess", (req, res) => {
-  if (req.user) res.json({ user: req.user, message: "User authenticated" });
-  else res.json({ user: null, message: "User not authenticated" });
+
+// SPOTIFY AUTH ROUTES
+route.get(
+  "/api/auth/spotify",
+  passport.authenticate("spotify", {
+    scope: ["user-read-email", "user-read-private"],
+  })
+);
+route.get(
+  "/api/auth/spotify/callback",
+  passport.authenticate("spotify", {
+    successRedirect: process.env.FRONTEND_END_POINT + "/dashboard",
+    failureRedirect: process.env.FRONTEND_END_POINT + "/login",
+  })
+);
+
+// ROUTER AFTER USER SUCCESS ON AUTHENTICATION
+route.get("/api/auth/succsess", isAuthenticated, (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({user: req.user, message: "verified"})
+  } else if(req.session.user) {
+    res.json({user: req.session.user, message: "verified"})
+  } else {
+    res.json({message: "User not authenticated"})
+  }
 });
 
 // CREATE NEW USER WITH EMAIL AN PASS WORD
 route.post("/api/signup_user", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, email, password } = req.body;
     const user = await User.findOne({ email: email });
 
     if (!user) {
-      const newUser = await new User({
+      const newUser = new User({
         clientID: null,
+        name: username,
         email: email,
         password: password,
       });
       const token = jwt.sign({ userId: newUser._id }, process.env.MY_SECRET, {
         expiresIn: "24h",
       });
-      if (newUser.clientID === undefined) return null;
-      else newUser.clientID = token;
-      const session = (req.session.user = token);
-      await newUser.save();
+      newUser.clientID = token;
       req.session.user = {
-        clientID: session,
-        id: newUser._id,
+        clientID: newUser._id,
+        name: newUser.name,
         email: newUser.email,
+        password: newUser.password,
       };
+      await newUser.save();
       res.status(200).json({
+        exist: false,
         message: "Account created successfully",
-        session: req.session.user,
+        session: token,
+        user: newUser,
       });
-    } else if (user) {
+    } else {
+      user.name = username;
       const token = jwt.sign({ userId: user._id }, process.env.MY_SECRET, {
         expiresIn: "24h",
       });
-      const session = (req.session.user = token);
+      user.clientID = token;
+
       req.session.user = {
-        clientID: session,
-        id: user._id,
+        clientID: user._id,
+        name: user.name,
         email: user.email,
+        password: user.password,
       };
+
+      await user.save();
       res.status(200).json({
         exist: true,
-        message: "User already exists",
-        session: req.session.user,
+        message: "Account updated successfully",
+        session: token,
+        user: user,
       });
     }
   } catch (error) {
@@ -93,9 +131,15 @@ route.post("/api/signin_user", async (req, res) => {
     });
 
     const session = (req.session.user = token);
-    res
-      .status(200)
-      .json({ message: "Login successful", user: user, session: session });
+    req.session.user = {
+      user: user,
+      session: user?.clientID,
+    };
+    res.status(200).json({
+      message: "Login successful",
+      session: session,
+      user: user,
+    });
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });
   }

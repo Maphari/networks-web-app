@@ -11,6 +11,8 @@
 @import "./components/signup";
 @import "./components/buttons";
 @import "./components/loader";
+@import "./components/leftnav";
+@import "./components/dashboard";
 // PAGES
 
 // MEDIA QUERY
@@ -20,7 +22,7 @@
 
 // GLOBAL STYLES
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: $FONT-POPOINS;
 }
 /* Set the width and height of the scrollbar */
 ::-webkit-scrollbar {

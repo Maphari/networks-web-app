@@ -1,6 +1,7 @@
 require("dotenv").config();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const SpotifyStrategy = require("passport-spotify").Strategy;
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 
@@ -34,6 +35,33 @@ passport.use(
           profilePicture: profile.photos ? profile.photos[0].value : null,
           name: profile.displayName,
           email: profile.emails ? profile.emails[0].value : null,
+          gender: profile.gender,
+        }).save();
+        done(null, newUser);
+      }
+    }
+  )
+);
+
+passport.use(
+  new SpotifyStrategy(
+    {
+      clientID: process.env.spotifyClientID,
+      clientSecret: process.env.spotifyClientSecret,
+      callbackURL: "/api/auth/spotify/callback",
+      proxy: true,
+    },
+    async (accessToken, refreshToken, expires_in, profile, done) => {
+      const user = await User.findOne({ clientID: profile.id });
+
+      if (user) {
+        done(null, user);
+      } else {
+        const newUser = await new User({
+          clientID: profile.id,
+          profilePicture: profile.photos && profile.photos.length > 0 ? profile.photos[0].value : null,
+          name: profile.displayName,
+          email: profile.emails && profile.emails.length > 0 ? profile.emails[0].value : null,
           gender: profile.gender,
         }).save();
         done(null, newUser);

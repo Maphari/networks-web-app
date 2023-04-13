@@ -1,0 +1,29 @@
+.leftnav-container {
+  $BORDER: 15px;
+  width: 15rem;
+  background-color: $TERTIARY-COLOR;
+  border-bottom-right-radius: $BORDER;
+  border-top-right-radius: $BORDER;
+  padding: 2rem 1rem;
+}
+
+.active {
+  background-color: $TERTIARY-COLOR-LIGHT;
+}
+.link {
+  position: relative;
+
+  &:hover::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    background-color: $PRIMARY-COLOR;
+    width: 3%;
+    height: 25px;
+    border-radius: 10px;
+  }
+}
+.i {
+  font-family: $FONT-SPACE;
+  font-size: .9rem;
+}

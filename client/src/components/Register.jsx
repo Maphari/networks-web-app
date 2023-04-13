@@ -7,13 +7,27 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export const Register = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [usernameError, setUsernameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [messageERROR, setMessageERROR] = useState("");
   const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
+  const userLanguage = navigator.language;
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    if (!username) {
+      setUsernameError("Username is required");
+    } else if (username.trim().length < 6) {
+      setUsernameError("Username must be 6 character long");
+    } else {
+      setUsernameError("");
+    }
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -38,8 +52,8 @@ export const Register = () => {
 
   const toastNotificationSuccess = (message) => {
     toast.success(message, {
-      position: "bottom-left",
-      autoClose: 1000,
+      position: "bottom-right",
+      autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -51,8 +65,8 @@ export const Register = () => {
 
   const toastNotificationError = (message) => {
     toast.error(message, {
-      position: "bottom-left",
-      autoClose: 1000,
+      position: "bottom-right",
+      autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -65,18 +79,20 @@ export const Register = () => {
   const handleCreateUser = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post("/api/signup_user", { email, password });
+      const res = await axios.post("/api/signup_user", { username, email, password });
+
+      console.log(res.data)
 
       if (res?.data?.exist === true) {
         toast(`${res?.data?.message} log in`, {
           position: "bottom-left",
-          autoClose: 1000,
+          autoClose: 3000,
           theme: "dark",
         });
         navigate("/login");
-      } else if (res?.data?.session?.clientID) {
-        localStorage.setItem("token", res?.data?.session?.clientID);
-        navigate("/", { replace: true });
+      } else if (res?.data?.session) {
+        localStorage.setItem("token", res?.data?.session);
+        navigate("/dashboard", { replace: true });
         toastNotificationSuccess(res.data.message);
       } else {
         toastNotificationError(res.data.errorMessage);
@@ -89,15 +105,24 @@ export const Register = () => {
 
   async function handleGoogleLogin() {
     window.open("/api/auth/google", "_self");
-    const res = await axios.get("/api/auth/google_succsess");
+    const res = await axios.get("/api/auth/succsess");
     const clientid = res?.data?.user?.clientID;
     localStorage.setItem("google-token", clientid);
+  }
+  async function handleSpotifyLogin() {
+    window.open("/api/auth/spotify", "_self");
+    const res = await axios.get("/api/auth/succsess");
+    const clientid = res?.data?.user?.clientID;
+    localStorage.setItem("spotify-token", clientid);
   }
 
   return (
     <>
       <div className="signup-container">
-        <Form onSubmit={handleCreateUser} className="drop-shadow-2xl rounded">
+        <Form
+          onSubmit={handleCreateUser}
+          className="drop-shadow-2xl rounded was-validated"
+        >
           <div className="signup-container__top">
             <div className="mb-3">
               <h1 className="signup-container__top-header">Create account</h1>
@@ -108,7 +133,32 @@ export const Register = () => {
             {messageERROR && (
               <p className="text-red-500 mb-1">{messageERROR}</p>
             )}
-            <InputGroup as={Col} hasValidation className="mb-2">
+            <InputGroup as={Col} hasValidation className="mb-3">
+              <InputGroup.Text id="basic-addon2" className="rounded-none">
+                <i className="fa-solid fa-user"></i>
+              </InputGroup.Text>
+              <Form.Control
+                className="rounded-none"
+                placeholder="username"
+                type="text"
+                aria-label="username"
+                aria-labelledby="basic-addon2"
+                name="username"
+                value={username}
+                onChange={handleUsernameChange}
+                isValid={!!username}
+                isInvalid={usernameError && usernameError}
+                required
+              />
+              {usernameError ? (
+                <Form.Control.Feedback type="invalid">
+                  {usernameError}
+                </Form.Control.Feedback>
+              ) : (
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              )}
+            </InputGroup>
+            <InputGroup as={Col} hasValidation className="mb-3">
               <InputGroup.Text id="basic-addon2" className="rounded-none">
                 <i className="fa-solid fa-envelope"></i>
               </InputGroup.Text>
@@ -125,10 +175,12 @@ export const Register = () => {
                 isInvalid={emailError && emailError}
                 required
               />
-              {emailError && (
+              {emailError ? (
                 <Form.Control.Feedback type="invalid">
                   {emailError}
                 </Form.Control.Feedback>
+              ) : (
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               )}
             </InputGroup>
             <InputGroup as={Col} hasValidation>
@@ -148,10 +200,12 @@ export const Register = () => {
                 isInvalid={passwordError && passwordError}
                 required
               />
-              {passwordError && (
+              {passwordError ? (
                 <Form.Control.Feedback type="invalid">
                   {passwordError}
                 </Form.Control.Feedback>
+              ) : (
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               )}
             </InputGroup>
             <p className="opacity-60 text-sm my-2">
@@ -161,25 +215,33 @@ export const Register = () => {
             </p>
             <button
               type="submit"
-              className="w-[100%] p-[0.5rem] bg-[#8ABB3A] flex gap-2 items-center justify-center text-white"
+              className="w-[100%] submit-btn flex gap-2 items-center justify-center text-white"
             >
-              <span>Create account</span>
+              <span>Sign up</span>
             </button>
-            <a
-              // href="/api/auth/google"
-              className="google-login-button drop-shadow-xl my-2 border hover:bg-slate-900"
-              onClick={handleGoogleLogin}
-            >
+            <hr className="my-2 border" />
+            <a onClick={handleGoogleLogin} className="google-button mb-2">
               <img
-                src="https://th.bing.com/th/id/R.0fa3fe04edf6c0202970f2088edea9e7?rik=joOK76LOMJlBPw&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fgoogle-logo-png-open-2000.png&ehk=0PJJlqaIxYmJ9eOIp9mYVPA4KwkGo5Zob552JPltDMw%3d&risl=&pid=ImgRaw&r=0"
-                alt="Google logo"
+                src="https://th.bing.com/th/id/R.01f28c2dfe2b297ec4a8e480569ba321?rik=1Q1LvXtv0pzIoQ&pid=ImgRaw&r=0"
+                alt="Google Logo"
+                className="google-logo"
               />
-              <span>Sign up with Google</span>
+              Sign up with Google
             </a>
+
+            <a onClick={handleSpotifyLogin} className="spotify-button">
+              <img
+                src="https://th.bing.com/th/id/R.148b28a3992349e8db92184c65d24bbd?rik=AJNg4RcAH8fwOg&riu=http%3a%2f%2forig12.deviantart.net%2f846f%2ff%2f2015%2f245%2f9%2fb%2fnew_spotify_icon_by_mattroxzworld-d98301o.png&ehk=4kqixXCdaWV6y4x6GzGcuj9iskpnJgcYXxemWAfh3cc%3d&risl=&pid=ImgRaw&r=0"
+                alt="Spotify Logo"
+                className="spotify-logo"
+              />
+              Sign up with Spotify
+            </a>
+
             <div className="flex items-center justify-center gap-2 mt-2">
               <p>Already have an account?</p>
-              <Link to="/login" className="font-bold hover:text-yellow-800">
-                Log in
+              <Link to="/login" className="aa font-bold hover:text-yellow-800">
+                Sign in
               </Link>
             </div>
           </div>
@@ -189,7 +251,10 @@ export const Register = () => {
             </h1>
           </div>
         </Form>
-        <p>Networks copyright &copy; {currentYear} {}</p>
+        <p className="absolute mb-3 bottom-0 font-[300] text-l flex items-center gap-2">
+          <span className="color font-bold">Networks</span> copyright &copy;
+          <span>{currentYear}</span> <span>{userLanguage}</span>
+        </p>
       </div>
     </>
   );

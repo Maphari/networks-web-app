@@ -1,6 +1,17 @@
-$PRIMARY-COLOR: #8ABB3A;
+$PRIMARY-COLOR: #8abb3a;
 $SECONDARY-COLOR: #050505;
+$TERTIARY-COLOR: #051937;
+$TERTIARY-COLOR-LIGHT: #07234d;
 $GRAY-COLOR: #333;
-$WHITE-COLOR: #FFF;
-$BACKGROUND-IMAGE-PRIMARY: linear-gradient(to left bottom, #051937, #0d152b, #0f1020, #0c0b15, #050505);
+$WHITE-COLOR: #fff;
+$BACKGROUND-IMAGE-PRIMARY: linear-gradient(
+  to left bottom,
+  #051937,
+  #0d152b,
+  #0f1020,
+  #0c0b15,
+  #050505
+);
 $CLIP-PATH-PRIMARY: polygon(0 0, 100% 0%, 100% 89%, 0% 100%);
+$FONT-POPOINS: 'poppins', sans-serif;
+$FONT-SPACE: "Space Grotesk", sans-serif;

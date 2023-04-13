@@ -13,6 +13,8 @@ export const Login = () => {
   const [passwordError, setPasswordError] = useState("");
   const [messageERROR, setMessageERROR] = useState("");
   const navigate = useNavigate();
+  const currentYear = new Date().getFullYear();
+  const userLanguage = navigator.language;
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -77,7 +79,7 @@ export const Login = () => {
       } else if (data?.session) {
         localStorage.setItem("token", data.session);
         toastNotificationSuccess(data.message);
-        window.location.href = "/home";
+        window.location.href = "/dashboard";
       } else {
         toastNotificationError(data.errorMessage);
         navigate("/login", { replace: true });
@@ -89,16 +91,24 @@ export const Login = () => {
 
   async function handleGoogleLogin() {
     window.open("/api/auth/google", "_self");
-    const res = await axios.get("/api/auth/google_succsess");
+    const res = await axios.get("/api/auth/succsess");
     const clientid = res?.data?.user?.clientID;
     localStorage.setItem("google-token", clientid);
   }
+
+  async function handleSpotifyLogin() {
+    window.open("/api/auth/spotify", "_self");
+    const res = await axios.get("/api/auth/succsess");
+    const clientid = res?.data?.user?.clientID;
+    localStorage.setItem("spotify-token", clientid);
+  }
+
   return (
     <>
       <div className="signup-container">
         <Form onSubmit={handleLogIn} className="drop-shadow-2xl rounded">
           <div className="signup-container__top">
-            <div className="mb-4">
+            <div className="mb-3">
               <h1 className="signup-container__top-header">Login</h1>
               <p className="signup-container__top-para">
                 Please provide you details
@@ -108,10 +118,11 @@ export const Login = () => {
               <p className="text-red-500 mb-1">{messageERROR}</p>
             )}
             <InputGroup as={Col} hasValidation className="mb-3">
-              <InputGroup.Text id="basic-addon2">
+              <InputGroup.Text id="basic-addon2" className="rounded-none">
                 <i className="fa-solid fa-envelope"></i>
               </InputGroup.Text>
               <Form.Control
+                className="rounded-none"
                 placeholder="example@gmail.com"
                 type="email"
                 aria-label="email"
@@ -129,11 +140,12 @@ export const Login = () => {
                 </Form.Control.Feedback>
               )}
             </InputGroup>
-            <InputGroup as={Col} hasValidation className="mb-3">
-              <InputGroup.Text id="basic-addon3">
+            <InputGroup as={Col} hasValidation>
+              <InputGroup.Text id="basic-addon3" className="rounded-none">
                 <i className="fa-solid fa-lock"></i>
               </InputGroup.Text>
               <Form.Control
+                className="rounded-none"
                 placeholder="at least 8 characters"
                 type="password"
                 aria-label="password"
@@ -151,32 +163,42 @@ export const Login = () => {
                 </Form.Control.Feedback>
               )}
             </InputGroup>
-            <p className="opacity-60 text-sm mb-2">
+            <p className="opacity-60 text-sm my-2">
               By loggin in to your account you agree to our{" "}
               <span className="color">terms</span> and{" "}
               <span className="color">conditions</span>
             </p>
             <button
               type="submit"
-              className="w-[100%] p-[0.5rem] bg-[#8ABB3A] flex gap-2 items-center justify-center text-white"
+              className="w-[100%]  submit-btn flex gap-2 items-center justify-center text-white"
             >
-              <span>Log in</span>
+              <span>Sign in</span>
             </button>
-            <a
-              // href="/api/auth/google"
-              className="google-login-button drop-shadow-xl my-2 border hover:bg-slate-900 hover:text-white"
-              onClick={handleGoogleLogin}
-            >
+            <hr className="my-2 border" />
+            <a onClick={handleGoogleLogin} className="google-button mb-2">
               <img
-                src="https://th.bing.com/th/id/R.0fa3fe04edf6c0202970f2088edea9e7?rik=joOK76LOMJlBPw&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fgoogle-logo-png-open-2000.png&ehk=0PJJlqaIxYmJ9eOIp9mYVPA4KwkGo5Zob552JPltDMw%3d&risl=&pid=ImgRaw&r=0"
-                alt="Google logo"
+                src="https://th.bing.com/th/id/R.01f28c2dfe2b297ec4a8e480569ba321?rik=1Q1LvXtv0pzIoQ&pid=ImgRaw&r=0"
+                alt="Google Logo"
+                className="google-logo"
               />
-              <span>Log in with Google</span>
+              Sign in with Google
+            </a>
+
+            <a onClick={handleSpotifyLogin} className="spotify-button">
+              <img
+                src="https://th.bing.com/th/id/R.148b28a3992349e8db92184c65d24bbd?rik=AJNg4RcAH8fwOg&riu=http%3a%2f%2forig12.deviantart.net%2f846f%2ff%2f2015%2f245%2f9%2fb%2fnew_spotify_icon_by_mattroxzworld-d98301o.png&ehk=4kqixXCdaWV6y4x6GzGcuj9iskpnJgcYXxemWAfh3cc%3d&risl=&pid=ImgRaw&r=0"
+                alt="Spotify Logo"
+                className="spotify-logo"
+              />
+              Sign in with Spotify
             </a>
             <div className="flex items-center justify-center gap-2 mt-2">
               <p>Don't have an account?</p>
-              <Link to="/register" className="font-bold hover:text-yellow-800">
-                Register
+              <Link
+                to="/register"
+                className="aa font-bold hover:text-yellow-800"
+              >
+                Sign up
               </Link>
             </div>
           </div>
@@ -186,6 +208,10 @@ export const Login = () => {
             </h1>
           </div>
         </Form>
+        <p className="absolute mb-3 bottom-0 font-[300] text-l flex items-center gap-2">
+          <span className="color font-bold">Networks</span> copyright &copy;{" "}
+          <span>{currentYear}</span> <span>{userLanguage}</span>
+        </p>
       </div>
     </>
   );

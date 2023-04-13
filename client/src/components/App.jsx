@@ -14,24 +14,29 @@ export default function App() {
 
   const emailAndPasswordSession = localStorage.getItem("token");
   const googleToken = localStorage.getItem("google-token");
+  const spotifyToken = localStorage.getItem("spotify-token");
 
   useEffect(() => {
-    if (googleToken != undefined) navigate("/home", { replace: true });
+    if (googleToken != undefined) navigate("/dashboard", { replace: true });
     if (emailAndPasswordSession != undefined)
-      navigate("/home", { replace: true });
+      navigate("/dashboard", { replace: true });
+    if (spotifyToken != undefined) navigate("/dashboard", { replace: true });
+  }, [emailAndPasswordSession, spotifyToken, googleToken]);
+
+  useEffect(() => {
     const loader = () => {
       setTimeout(() => {
         setLoading(false);
       }, 1000);
     };
     return () => loader();
-  }, [googleToken, emailAndPasswordSession]);
+  }, []);
 
   return (
     <>
       <ToastContainer
-        position="bottom-left"
-        autoClose={1000}
+        position="bottom-right"
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -46,9 +51,11 @@ export default function App() {
       ) : (
         <Routes>
           <Route
-            path="/home"
+            path="/dashboard"
             element={
-              emailAndPasswordSession !== null || googleToken !== null ? (
+              emailAndPasswordSession !== null ||
+              googleToken !== null ||
+              spotifyToken !== null ? (
                 <Home />
               ) : (
                 <LandingPage />
@@ -58,8 +65,10 @@ export default function App() {
           <Route
             path="/"
             element={
-              emailAndPasswordSession !== null || googleToken !== null ? (
-                <Navigate to="/home" replace={true} />
+              emailAndPasswordSession !== null ||
+              googleToken !== null ||
+              spotifyToken !== null ? (
+                <Navigate to="/dashboard" replace={true} />
               ) : (
                 <LandingPage />
               )
@@ -68,8 +77,10 @@ export default function App() {
           <Route
             path="/register"
             element={
-              emailAndPasswordSession !== null || googleToken !== null ? (
-                <Navigate to="/home" replace={true} />
+              emailAndPasswordSession !== null ||
+              googleToken !== null ||
+              spotifyToken !== null ? (
+                <Navigate to="/dashboard" replace={true} />
               ) : (
                 <Register />
               )
@@ -78,8 +89,10 @@ export default function App() {
           <Route
             path="/login"
             element={
-              emailAndPasswordSession !== null || googleToken !== null ? (
-                <Navigate to="/home" replace={true} />
+              emailAndPasswordSession !== null ||
+              googleToken !== null ||
+              spotifyToken !== null ? (
+                <Navigate to="/dashboard" replace={true} />
               ) : (
                 <Login />
               )
