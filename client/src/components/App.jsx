@@ -7,6 +7,12 @@ import { LandingPage } from "./LandingPage";
 import { Home } from "./authenticatedPages/Home";
 import { Register } from "./Register";
 import { Login } from "./Login";
+import Maps from "./authenticatedPages/Maps";
+import BankAccount from "./authenticatedPages/BankAccount";
+import AddYours from "./authenticatedPages/AddYours";
+import Settings from "./authenticatedPages/Settings";
+import Support from "./authenticatedPages/Support";
+import Report from "./authenticatedPages/Report";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -22,6 +28,8 @@ export default function App() {
       navigate("/dashboard", { replace: true });
     if (spotifyToken != undefined) navigate("/dashboard", { replace: true });
   }, [emailAndPasswordSession, spotifyToken, googleToken]);
+
+ 
 
   useEffect(() => {
     const loader = () => {
@@ -58,7 +66,7 @@ export default function App() {
               spotifyToken !== null ? (
                 <Home />
               ) : (
-                <LandingPage />
+                <Login />
               )
             }
           />
@@ -93,6 +101,78 @@ export default function App() {
               googleToken !== null ||
               spotifyToken !== null ? (
                 <Navigate to="/dashboard" replace={true} />
+              ) : (
+                <Login />
+              )
+            }
+          />
+          <Route
+            path="/maps"
+            element={
+              emailAndPasswordSession !== null ||
+              googleToken !== null ||
+              spotifyToken !== null ? (
+                <Maps />
+              ) : (
+                <Login />
+              )
+            }
+          />
+          <Route
+            path="/bankaccount"
+            element={
+              emailAndPasswordSession !== null ||
+              googleToken !== null ||
+              spotifyToken !== null ? (
+                <BankAccount />
+              ) : (
+                <Login />
+              )
+            }
+          />
+           <Route
+            path="/addyours"
+            element={
+              emailAndPasswordSession !== null ||
+              googleToken !== null ||
+              spotifyToken !== null ? (
+                <AddYours/>
+              ) : (
+                <Login />
+              )
+            }
+          />
+           <Route
+            path="/settings"
+            element={
+              emailAndPasswordSession !== null ||
+              googleToken !== null ||
+              spotifyToken !== null ? (
+                <Settings />
+              ) : (
+                <Login />
+              )
+            }
+          />
+           <Route
+            path="/report"
+            element={
+              emailAndPasswordSession !== null ||
+              googleToken !== null ||
+              spotifyToken !== null ? (
+                <Report />
+              ) : (
+                <Login />
+              )
+            }
+          />
+           <Route
+            path="/support"
+            element={
+              emailAndPasswordSession !== null ||
+              googleToken !== null ||
+              spotifyToken !== null ? (
+                <Support />
               ) : (
                 <Login />
               )

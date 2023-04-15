@@ -4,9 +4,11 @@ const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 require("./models/User");
+require("./models/Category");
 const route = require("./routes/authRoutes");
 require("./services/passport");
 const cors = require("cors");
+const dataRoute = require("./routes/dataRoutes");
 
 const app = express();
 
@@ -23,5 +25,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(route);
+app.use(dataRoute);
 
 app.listen(process.env.PORT);

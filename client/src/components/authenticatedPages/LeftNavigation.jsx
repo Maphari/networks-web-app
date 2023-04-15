@@ -1,41 +1,39 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { PassportContext } from "../../context/PassportContext";
 // IMAGES LOGO
 import LogoImage from "../../assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
 
 export const LeftNavigation = () => {
   const Passport = useContext(PassportContext);
   const { data } = Passport || {};
   const navigate = useNavigate();
   const location = useLocation();
-  const username = data?.data?.user?.name;
-  const email = data?.data?.user?.email;
-  const profile = data?.data?.user.profilePicture;
+  const username = data?.name;
+  const email = data?.email;
+  const profile = data?.profilePicture;
 
-
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.clear();
-    navigate("/login");
+    navigate("/login", { replace: true });
     window.location.reload();
   };
 
   const cutUsernameIfLong = () => {
-    if (username.length > 12) {
-      const modifiesUsername = username.slice(0, 12) + "...";
+    if (username?.length > 12) {
+      const modifiesUsername = username?.slice(0, 12) + "...";
       return modifiesUsername;
     } else {
       return username;
     }
   };
 
-  const cutEmailifLong = () => {
-    const indexOf = email.indexOf("@");
-    const username = email.slice(0, indexOf);
-    const domain = email.slice(indexOf);
-    const modifiesEmail = username.slice(0, 7) + "..." + domain;
-    return modifiesEmail;
-  };
+  const cutEmailifLong = () =>
+    email?.slice(0, email.indexOf("@"))?.slice(0, 7) +
+    "..." +
+    email?.slice(email.indexOf("@"));
+
 
   return (
     <>
@@ -47,7 +45,7 @@ export const LeftNavigation = () => {
           </h1>
         </div>
         <div className="leftnav-container__profile flex items-center">
-          {data?.data?.user?.profilePicture ? (
+          {data?.user?.profilePicture ? (
             <img
               src={profile}
               alt="user profile picture"
@@ -56,7 +54,7 @@ export const LeftNavigation = () => {
           ) : (
             <div className="bg-[#8abb3a] w-[40px] h-[40px] flex items-center justify-center rounded-full mr-2">
               <span className="font-bold text-white">
-                {username.slice(0, 2)}
+                {username?.slice(0, 2)}
               </span>
             </div>
           )}
@@ -75,9 +73,9 @@ export const LeftNavigation = () => {
           <div className="my-3">
             <Link
               to="/dashboard"
-              className={`${(location.pathname = "/dashboard"
-                ? "active"
-                : "")} link pl-3 py-2 pr-2 flex items-center text-white hover:bg-[#07234D] hover:cursor-pointer rounded-lg mb-[0.5rem]`}
+              className={`${
+                location.pathname === "/dashboard" ? "active" : ""
+              } link pl-3 py-2 pr-2 flex items-center text-white hover:bg-[#07234D] hover:cursor-pointer rounded-lg mb-[0.5rem]`}
             >
               <i className="fa-solid fa-boxes-stacked text-xl mr-3"></i>
               <h1 className="font-[300] text-[0.9rem]">Dashboard</h1>
@@ -145,6 +143,7 @@ export const LeftNavigation = () => {
                 <h1 className="font-[300] text-[0.9rem]">support</h1>
               </Link>
               <Link
+                to="/api/user_logout"
                 onClick={handleLogout}
                 className={`${
                   location.pathname === "/logout" ? "active" : ""
@@ -157,9 +156,7 @@ export const LeftNavigation = () => {
           </div>
           <div className="pl-3 flex items-center">
             <i className="fa-solid fa-circle-check text-white pr-2"></i>
-            <span className="text-white font-[300] i">
-              {data?.data?.message}
-            </span>
+            <span className="text-white font-[300] i">{data?.clientID ? "Verified" : "Not verified"}</span>
           </div>
         </div>
       </div>

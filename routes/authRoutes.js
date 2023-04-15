@@ -7,12 +7,13 @@ const User = mongoose.model("User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const isAuthenticated = (req, res, next) => {
-  if (req.session.user || req.user) {
-    next();
-  } else {
-    res.json({ message: "notAllowed" });
-  }
+const isAuthenticatedPassport = (req, res, next) => {
+  if (req.isAuthenticated()) next();
+  else res.json({ message: "User not authenticated" });
+};
+const isAuthenticatedEmailAndPassword = (req, res, next) => {
+  if (req.session.user) next();
+  else res.json({ message: "User not authenticated" });
 };
 
 // GOOGLE AUTH ROUTEAS
@@ -42,17 +43,30 @@ route.get(
     failureRedirect: process.env.FRONTEND_END_POINT + "/login",
   })
 );
-
 // ROUTER AFTER USER SUCCESS ON AUTHENTICATION
-route.get("/api/auth/succsess", isAuthenticated, (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({user: req.user, message: "verified"})
-  } else if(req.session.user) {
-    res.json({user: req.session.user, message: "verified"})
-  } else {
-    res.json({message: "User not authenticated"})
-  }
+route.get("/api/auth/passport_success", isAuthenticatedPassport, (req, res) => {
+  if (req.isAuthenticated()) 
+    res.json({ user: req.user, message: "verified", session: req.user?.clientID });
+   else 
+    res.json({  message: "User not authenticated" });
+  
 });
+route.get("/api/auth/account_success", isAuthenticatedEmailAndPassword, function (req, res) {
+  if(req.session.user?.user)
+  res.json({ user: req.session.user, message: "verified"});
+  else 
+   res.json({  message: "User not authenticated" });
+});
+
+route.get(
+  "/api/user_logout",
+  isAuthenticatedEmailAndPassword,
+  function (req, res) {
+    req.logout();
+    req.session.user = null;
+    res.redirect(process.env.FRONTEND_END_POINT + "/login");
+  }
+);
 
 // CREATE NEW USER WITH EMAIL AN PASS WORD
 route.post("/api/signup_user", async (req, res) => {
@@ -126,18 +140,13 @@ route.post("/api/signin_user", async (req, res) => {
       res.json({ errorMessage: "password does not match" });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.MY_SECRET, {
-      expiresIn: "24h",
-    });
-
-    const session = (req.session.user = token);
     req.session.user = {
       user: user,
       session: user?.clientID,
     };
     res.status(200).json({
       message: "Login successful",
-      session: session,
+      session: user?.clientID,
       user: user,
     });
   } catch (error) {

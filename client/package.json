@@ -17,9 +17,11 @@
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.10.0",
+    "react-slick": "^0.29.0",
     "react-toastify": "^9.1.2",
     "reveal-on-scroll-react": "^0.0.6",
-    "sass": "^1.61.0"
+    "sass": "^1.61.0",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

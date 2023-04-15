@@ -1,6 +1,6 @@
 // COMPONENTS IMPORT
 import { LeftNavigation } from "./LeftNavigation";
-import { Dashboard } from "./Dashboard";
+import  Dashboard  from "./Dashboard";
 
 
 export const Home = () => {

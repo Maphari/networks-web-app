@@ -73,6 +73,7 @@ export const Login = () => {
       });
       const data = await res.json();
 
+
       if (data.exist === false) {
         toastNotificationSuccess(data.errorMessage);
         navigate("/register", { replace: true });
@@ -83,22 +84,24 @@ export const Login = () => {
       } else {
         toastNotificationError(data.errorMessage);
         navigate("/login", { replace: true });
+        window.location.reload();
       }
     } catch (error) {
       setMessageERROR(`Error: Incorrect password`);
+      window.location.reload();
     }
   };
 
   async function handleGoogleLogin() {
     window.open("/api/auth/google", "_self");
-    const res = await axios.get("/api/auth/succsess");
+    const res = await axios.get("/api/auth/passport_success");
     const clientid = res?.data?.user?.clientID;
     localStorage.setItem("google-token", clientid);
   }
 
   async function handleSpotifyLogin() {
     window.open("/api/auth/spotify", "_self");
-    const res = await axios.get("/api/auth/succsess");
+    const res = await axios.get("/api/auth/passport_success");
     const clientid = res?.data?.user?.clientID;
     localStorage.setItem("spotify-token", clientid);
   }
@@ -106,7 +109,10 @@ export const Login = () => {
   return (
     <>
       <div className="signup-container">
-        <Form onSubmit={handleLogIn} className="drop-shadow-2xl rounded">
+        <Form
+          onSubmit={handleLogIn}
+          className="drop-shadow-2xl rounded was-validated"
+        >
           <div className="signup-container__top">
             <div className="mb-3">
               <h1 className="signup-container__top-header">Login</h1>
@@ -134,10 +140,12 @@ export const Login = () => {
                 isInvalid={emailError && emailError}
                 required
               />
-              {emailError && (
+              {emailError ? (
                 <Form.Control.Feedback type="invalid">
                   {emailError}
                 </Form.Control.Feedback>
+              ) : (
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               )}
             </InputGroup>
             <InputGroup as={Col} hasValidation>
@@ -157,10 +165,12 @@ export const Login = () => {
                 isInvalid={passwordError && passwordError}
                 required
               />
-              {passwordError && (
+              {passwordError ? (
                 <Form.Control.Feedback type="invalid">
                   {passwordError}
                 </Form.Control.Feedback>
+              ) : (
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               )}
             </InputGroup>
             <p className="opacity-60 text-sm my-2">

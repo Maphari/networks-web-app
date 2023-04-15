@@ -10,8 +10,27 @@ export default class PassportProvide extends Component {
   }
 
   async componentDidMount() {
-    const response = await axios.get("/api/auth/succsess");
-    this.setState({ data: response });
+    const responsePassport = await axios.get("/api/auth/passport_success");
+    const responseEmailAndPassword = await axios.get(
+      "/api/auth/account_success"
+    );
+    // tokens
+    const googleToken = localStorage.getItem("google-token");
+    const spotifyToken = localStorage.getItem("spotify-token");
+    const emailAndPasswordSessionToken = localStorage.getItem("token");
+    // backend jwt
+    const emailAndPasswordSession = responseEmailAndPassword.data?.user?.user?.clientID;
+    const passportSuccessSession = responsePassport.data?.session;
+    // condition with data to give the user
+    const isEmailAndPasswordData = emailAndPasswordSession === emailAndPasswordSessionToken
+    const isPassportSuccess = passportSuccessSession === googleToken || passportSuccessSession === spotifyToken;
+
+   
+    
+    if (isEmailAndPasswordData)
+      this.setState({ data: responseEmailAndPassword.data.user.user });
+    else if (isPassportSuccess)
+      this.setState({ data: responsePassport.data.user });
   }
 
   render() {

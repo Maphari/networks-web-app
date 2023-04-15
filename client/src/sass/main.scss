@@ -1,7 +1,7 @@
 @import "./tailwind.scss";
 //  VARIABLES
-@import "./utils/variables";
-@import "./utils/mixins";
+@import "./base/variables";
+@import "./base/mixins";
 // COMPONENTS
 @import "./components/nav";
 @import "./components/appshowcase";
@@ -19,6 +19,7 @@
 @import "./media-query/nav-m";
 @import "./media-query/showcase-m";
 @import "./media-query/laptop-m";
+@import "./media-query/dashboard-m";
 
 // GLOBAL STYLES
 body {

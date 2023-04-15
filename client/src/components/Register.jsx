@@ -81,8 +81,6 @@ export const Register = () => {
       e.preventDefault();
       const res = await axios.post("/api/signup_user", { username, email, password });
 
-      console.log(res.data)
-
       if (res?.data?.exist === true) {
         toast(`${res?.data?.message} log in`, {
           position: "bottom-left",
@@ -105,13 +103,13 @@ export const Register = () => {
 
   async function handleGoogleLogin() {
     window.open("/api/auth/google", "_self");
-    const res = await axios.get("/api/auth/succsess");
+    const res = await axios.get("/api/auth/passport_success");
     const clientid = res?.data?.user?.clientID;
     localStorage.setItem("google-token", clientid);
   }
   async function handleSpotifyLogin() {
     window.open("/api/auth/spotify", "_self");
-    const res = await axios.get("/api/auth/succsess");
+    const res = await axios.get("/api/auth/passport_success");
     const clientid = res?.data?.user?.clientID;
     localStorage.setItem("spotify-token", clientid);
   }
