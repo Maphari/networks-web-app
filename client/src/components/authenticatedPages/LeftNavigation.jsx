@@ -4,7 +4,6 @@ import { PassportContext } from "../../context/PassportContext";
 import LogoImage from "../../assets/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-
 export const LeftNavigation = () => {
   const Passport = useContext(PassportContext);
   const { data } = Passport || {};
@@ -34,7 +33,6 @@ export const LeftNavigation = () => {
     "..." +
     email?.slice(email.indexOf("@"));
 
-
   return (
     <>
       <div className="leftnav-container drop-shadow-2xl">
@@ -45,7 +43,7 @@ export const LeftNavigation = () => {
           </h1>
         </div>
         <div className="leftnav-container__profile flex items-center">
-          {data?.user?.profilePicture ? (
+          {profile ? (
             <img
               src={profile}
               alt="user profile picture"
@@ -156,7 +154,9 @@ export const LeftNavigation = () => {
           </div>
           <div className="pl-3 flex items-center">
             <i className="fa-solid fa-circle-check text-white pr-2"></i>
-            <span className="text-white font-[300] i">{data?.clientID ? "Verified" : "Not verified"}</span>
+            <span className="text-white font-[300] i">
+              {data?.clientID ? "Verified" : "Not verified"}
+            </span>
           </div>
         </div>
       </div>

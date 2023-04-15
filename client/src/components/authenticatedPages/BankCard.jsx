@@ -15,11 +15,11 @@ export default function (props) {
           credit.
         </p>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <div className="bg-[#1E1E1E] text-white p-[20px] rounded-xl h-[12rem] w-[22rem]">
           <div className="flex items-center justify-between mb-4">
             <h1 className="opacity-50 font-medium text-xl">
-              Available balance
+              Balance
             </h1>
             <div className="flex items-center gap-2">
               <p className="opacity-50">{option}</p>

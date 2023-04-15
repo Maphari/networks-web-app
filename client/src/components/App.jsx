@@ -29,8 +29,13 @@ export default function App() {
     if (spotifyToken != undefined) navigate("/dashboard", { replace: true });
   }, [emailAndPasswordSession, spotifyToken, googleToken]);
 
- 
-
+   // Redirect to last URL if it exists in localStorage
+   useEffect(() => {
+    const lastUrl = localStorage.getItem('lastUrl');
+    if (lastUrl) {
+      navigate(`${lastUrl}`);
+    }
+  }, [navigate]);
   useEffect(() => {
     const loader = () => {
       setTimeout(() => {
@@ -130,19 +135,19 @@ export default function App() {
               )
             }
           />
-           <Route
+          <Route
             path="/addyours"
             element={
               emailAndPasswordSession !== null ||
               googleToken !== null ||
               spotifyToken !== null ? (
-                <AddYours/>
+                <AddYours />
               ) : (
                 <Login />
               )
             }
           />
-           <Route
+          <Route
             path="/settings"
             element={
               emailAndPasswordSession !== null ||
@@ -154,7 +159,7 @@ export default function App() {
               )
             }
           />
-           <Route
+          <Route
             path="/report"
             element={
               emailAndPasswordSession !== null ||
@@ -166,7 +171,7 @@ export default function App() {
               )
             }
           />
-           <Route
+          <Route
             path="/support"
             element={
               emailAndPasswordSession !== null ||

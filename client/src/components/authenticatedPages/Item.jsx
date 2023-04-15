@@ -18,7 +18,7 @@ export default function Item(props) {
           <h1 className="text-md font-[600] mb-1">{heading}</h1>
           <p className="opacity-50 mb-1">{description}</p>
           <div className="flex items-center justify-between">
-            <p className="opacity-70 font-bold text-lg">{price}</p>
+            <p className="text-[#8abb3a] font-bold text-lg">R{price}.00</p>
             <div className="flex items-center justify-center gap-2">
               <p className="opacity-50 text-sm">{isMoreRated}</p>
               <i className={`fa-solid fa-${iconNameRated} text-[#8abb3a]`}></i>

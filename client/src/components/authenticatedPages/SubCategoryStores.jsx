@@ -13,7 +13,7 @@ export default function SubCategoryStores(props) {
   } = props;
   return (
     <section className="flex flex-wrap items-center bg-white drop-shadow-2xl rounded-b-xl">
-      <div className="relative w-[15rem]">
+      <div className="relative w-[15rem] sub">
         <div className="bg-[#8abb3a] rounded-xl h-12 w-12 flex justify-center items-center absolute">
           <i className={`fa-solid fa-${iconName} text-xl text-white`}></i>
         </div>

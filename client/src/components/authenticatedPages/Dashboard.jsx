@@ -20,6 +20,9 @@ export default class Dashboard extends Component {
       isClicked: false,
     };
   }
+  componentDidMount() {
+    localStorage.setItem("currentPage", (window.location.href = "/dashboard"));
+  }
 
   async componentDidMount() {
     const categoriesResponse = await axios.get("/api/data/category");
@@ -60,6 +63,8 @@ export default class Dashboard extends Component {
 
     const items = this.state.stores.map((item) => item.items);
     const flattenedItems = items.reduce((acc, val) => acc.concat(val), []);
+    const currentYear = new Date().getFullYear();
+    const userLanguage = navigator.language;
 
     return (
       <>
@@ -77,22 +82,12 @@ export default class Dashboard extends Component {
             kkk
           </div>
         )}
-        <div
-          className="relative flex items-center justify-center"
-          style={{ display: this.state.isClicked ? "none" : "" }}
-        >
-          <div
-            className="menu-small flex items-center justify-center flex-1"
-            onClick={handleOpenMenu}
-          >
-            <div className="center"></div>
-          </div>
-        </div>
         <section
           className={`dashboard-container`}
           style={{ display: this.state.isClicked ? "none" : "" }}
         >
-          <div className="mb-10"></div>
+          {/* <div className="mb-10"></div> */}
+
           <section className="dashboard-container__top mb-14">
             <div className="dashboard-container__top-header relative">
               <span className="absolute h-10 w-10 bg-[#8abb3a] rounded-full"></span>
@@ -100,10 +95,9 @@ export default class Dashboard extends Component {
                 <span className="text-white">D</span>ashboard
               </h1>
             </div>
-
             <form>
               <div
-                className={`border ${
+                className={`border form ${
                   this.state.searchTerm ? "rounded-none" : "rounded"
                 } py-[0.6rem] w-[20rem] flex items-center gap-1 relative`}
               >
@@ -113,7 +107,9 @@ export default class Dashboard extends Component {
                   placeholder="Search for categories, shops, etc."
                   className="flex-1 outline-none"
                   value={this.state.searchTerm}
-                  onChange={(e) => this.setState(e.target.value)}
+                  onChange={(e) =>
+                    this.setState({ searchTerm: e.target.value })
+                  }
                 />
               </div>
               {this.state.searchTerm && (
@@ -124,7 +120,7 @@ export default class Dashboard extends Component {
             </form>
           </section>
 
-          <section className="w-[100%] mb-5">
+          <section className="w-[100%] mb-5 section">
             <div className="flex items-center justify-between mb-4">
               <h1 className="text-2xl font-[700]">Browse services</h1>
               <Link
@@ -135,7 +131,7 @@ export default class Dashboard extends Component {
               </Link>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3 section-div">
               {categories.map((category) => (
                 <SubCategory
                   key={category._id}
@@ -231,7 +227,7 @@ export default class Dashboard extends Component {
           <section className="w-[100%] mb-5">
             <div className="flex items-center justify-between mb-2">
               <div className="text-2xl font-[700] flex items-center gap-1 mb-2">
-                <h1>Most rated stores {">="} 4.7</h1>
+                <h1>Most rated {">="} 4.7</h1>
               </div>
               <Link
                 to=""
@@ -465,7 +461,79 @@ export default class Dashboard extends Component {
               )}
             </div>
           </section>
+          <section className="w-[100%] mb-5">
+            <div className="flex items-center justify-between mb-2">
+              <div className="text-2xl font-[700] flex items-center gap-1 mb-3">
+                <h1>All services</h1>
+              </div>
+              <Link
+                to=""
+                className="text-[#1E1E1E] hover:bg-[#1e1e1e] hover:text-white border p-2 font-[400] transition-all duration-700 ease-in-out"
+              >
+                See all
+              </Link>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 mb-3">
+              {flattenedItems.map((item) => (
+                <Item
+                  key={item[1]?.itemID}
+                  src={item[1]?.itemImage}
+                  alt={item[1]?.description}
+                  heading={truncateHeader(item[1].itemName)}
+                  iconName={
+                    item[1]?.category === "stores"
+                      ? "store"
+                      : item[1]?.category === "delivery"
+                      ? "truck-fast"
+                      : item[1]?.category === "services"
+                      ? "gear"
+                      : null
+                  }
+                  isMoreRated={
+                    item[1]?.rating >= 4.7
+                      ? "Most rated"
+                      : item[1]?.rating < 4.7
+                      ? "Average"
+                      : item[1]?.rating <= 2.7
+                      ? "low rated"
+                      : null
+                  }
+                  iconNameRated={
+                    item[1]?.rating >= 4.7
+                      ? "face-smile"
+                      : item[1]?.rating < 4.7
+                      ? "face-meh"
+                      : item[1]?.rating <= 2.7
+                      ? "face-frown"
+                      : null
+                  }
+                  rating={item[1]?.rating}
+                  description={truncate(item[1]?.description)}
+                  price={item[1]?.price}
+                />
+              ))}
+            </div>
+          </section>
+
+          <section className="my-3">
+            <p className="opacity-80">
+              <span className="color">Networks</span> &copy; copyright{" "}
+              {currentYear} <span className="font-medium">{userLanguage}</span>
+            </p>
+          </section>
         </section>
+        <div
+          className="relative flex items-center justify-center"
+          style={{ display: this.state.isClicked ? "none" : "" }}
+        >
+          <div
+            className="menu-small flex items-center justify-center flex-1"
+            onClick={handleOpenMenu}
+          >
+            <div className="center"></div>
+          </div>
+        </div>
       </>
     );
   }

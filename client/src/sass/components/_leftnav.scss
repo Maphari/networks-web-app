@@ -6,6 +6,17 @@
 
 .active {
   background-color: $TERTIARY-COLOR-LIGHT;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    background-color: $PRIMARY-COLOR;
+    width: 3%;
+    height: 25px;
+    border-radius: 10px;
+  }
 }
 .link {
   position: relative;
@@ -22,5 +33,5 @@
 }
 .i {
   font-family: $FONT-SPACE;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
