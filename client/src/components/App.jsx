@@ -13,6 +13,7 @@ import AddYours from "./authenticatedPages/AddYours";
 import Settings from "./authenticatedPages/Settings";
 import Support from "./authenticatedPages/Support";
 import Report from "./authenticatedPages/Report";
+import Entertainment from "./authenticatedPages/Entertainment";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -23,19 +24,23 @@ export default function App() {
   const spotifyToken = localStorage.getItem("spotify-token");
 
   useEffect(() => {
-    if (googleToken != undefined) navigate("/dashboard", { replace: true });
-    if (emailAndPasswordSession != undefined)
-      navigate("/dashboard", { replace: true });
-    if (spotifyToken != undefined) navigate("/dashboard", { replace: true });
+    switch (googleToken || emailAndPasswordSession || spotifyToken) {
+      case googleToken != undefined:
+        navigate("/dashboard", { replace: true });
+        break;
+      case emailAndPasswordSession != undefined:
+        navigate("/dashboard", { replace: true });
+        break;
+      case spotifyToken != undefined:
+        navigate("/dashboard", { replace: true });
+        break;
+      default:
+        navigate("/", { replace: true });
+    }
   }, [emailAndPasswordSession, spotifyToken, googleToken]);
 
-   // Redirect to last URL if it exists in localStorage
-   useEffect(() => {
-    const lastUrl = localStorage.getItem('lastUrl');
-    if (lastUrl) {
-      navigate(`${lastUrl}`);
-    }
-  }, [navigate]);
+
+  // timer for the loader
   useEffect(() => {
     const loader = () => {
       setTimeout(() => {
@@ -178,6 +183,18 @@ export default function App() {
               googleToken !== null ||
               spotifyToken !== null ? (
                 <Support />
+              ) : (
+                <Login />
+              )
+            }
+          />
+          <Route
+            path="/entertainment"
+            element={
+              emailAndPasswordSession !== null ||
+              googleToken !== null ||
+              spotifyToken !== null ? (
+                <Entertainment />
               ) : (
                 <Login />
               )

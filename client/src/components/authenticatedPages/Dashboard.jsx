@@ -1,7 +1,7 @@
 import React, { Component, useContext } from "react";
 import { PassportContext } from "../../context/PassportContext";
 import { Link } from "react-router-dom";
-import BankCard from "./BankCard";
+
 import SubCategory from "./Subcategory";
 import SubCategoryStores from "./SubCategoryStores";
 import axios from "axios";
@@ -18,10 +18,8 @@ export default class Dashboard extends Component {
       stores: [],
       items: [],
       isClicked: false,
+      properties: [],
     };
-  }
-  componentDidMount() {
-    localStorage.setItem("currentPage", (window.location.href = "/dashboard"));
   }
 
   async componentDidMount() {
@@ -32,6 +30,7 @@ export default class Dashboard extends Component {
       stores: storesResponse.data,
     });
   }
+
   render() {
     const { categories, stores } = this.state;
     const starterAccountBalance = 3000;
@@ -86,8 +85,6 @@ export default class Dashboard extends Component {
           className={`dashboard-container`}
           style={{ display: this.state.isClicked ? "none" : "" }}
         >
-          {/* <div className="mb-10"></div> */}
-
           <section className="dashboard-container__top mb-14">
             <div className="dashboard-container__top-header relative">
               <span className="absolute h-10 w-10 bg-[#8abb3a] rounded-full"></span>
@@ -136,12 +133,14 @@ export default class Dashboard extends Component {
                 <SubCategory
                   key={category._id}
                   iconName={
-                    category.category === "Services"
+                    category.category === "Studios"
+                      ? "camera"
+                      : category.category === "Technician"
                       ? "gear"
-                      : category.category === "Stores"
-                      ? "store"
                       : category.category === "Delivery"
                       ? "truck-fast"
+                      : category.category === "Entertainment"
+                      ? "video"
                       : null
                   }
                   header={truncateHeader(category.category)}
@@ -150,6 +149,7 @@ export default class Dashboard extends Component {
                 />
               ))}
               <SubCategory
+                to="/entertainment"
                 rating="4.9"
                 iconName="circle-plus"
                 header="Add yours"
@@ -158,18 +158,10 @@ export default class Dashboard extends Component {
             </div>
           </section>
 
-          <section className="dashborad-container__bankcard mb-5">
-            <BankCard
-              balance={starterAccountBalance}
-              option="Credit"
-              accountNumber="**************6453"
-            />
-          </section>
-
           <section className="w-[100%] mb-5">
             <div className="flex items-center justify-between mb-2">
               <div className="text-2xl font-[700] flex items-center gap-1 mb-3">
-                <h1>Browse our stores</h1>
+                <h1>Browse our services</h1>
               </div>
               <Link
                 to=""
@@ -211,12 +203,14 @@ export default class Dashboard extends Component {
                       : null
                   }
                   iconName={
-                    store.category === "services"
-                      ? "gear"
+                    store.category === "studios"
+                      ? "camera"
                       : store.category === "delivery"
                       ? "truck-fast"
-                      : store.category === "stores"
-                      ? "store"
+                      : store.category === "technician"
+                      ? "gear"
+                      : store.category === "book"
+                      ? "bookmark"
                       : null
                   }
                 />
@@ -275,12 +269,14 @@ export default class Dashboard extends Component {
                           : null
                       }
                       iconName={
-                        store.category === "services"
-                          ? "gear"
+                        store.category === "studios"
+                          ? "camera"
                           : store.category === "delivery"
                           ? "truck-fast"
-                          : store.category === "stores"
-                          ? "store"
+                          : store.category === "technician"
+                          ? "gear"
+                          : store.category === "book"
+                          ? "bookmark"
                           : null
                       }
                     />
@@ -305,19 +301,21 @@ export default class Dashboard extends Component {
             <div className="flex flex-wrap items-center gap-3 mb-3">
               {flattenedItems.map(
                 (item) =>
-                  item[1].category === "services" && (
+                  item[1].category === "studios" && (
                     <Item
                       key={item[1]?.itemID}
                       src={item[1]?.itemImage}
                       alt={item[1]?.description}
                       heading={truncateHeader(item[1].itemName)}
                       iconName={
-                        item[1]?.category === "stores"
-                          ? "store"
+                        item[1]?.category === "studios"
+                          ? "camera"
                           : item[1]?.category === "delivery"
                           ? "truck-fast"
-                          : item[1]?.category === "services"
+                          : item[1]?.category === "technician"
                           ? "gear"
+                          : item[1]?.category === "book"
+                          ? "bookmark"
                           : null
                       }
                       isMoreRated={
@@ -347,120 +345,6 @@ export default class Dashboard extends Component {
             </div>
           </section>
 
-          <section className="w-[100%] mb-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-2xl font-[700] flex items-center gap-1 mb-3">
-                <h1>Food</h1>
-              </div>
-              <Link
-                to=""
-                className="text-[#1E1E1E] hover:bg-[#1e1e1e] hover:text-white border p-2 font-[400] transition-all duration-700 ease-in-out"
-              >
-                See all
-              </Link>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 mb-3">
-              {flattenedItems.map(
-                (item) =>
-                  item[1].category === "stores" && (
-                    <Item
-                      key={item[1]?.itemID}
-                      src={item[1]?.itemImage}
-                      alt={item[1]?.description}
-                      heading={truncateHeader(item[1].itemName)}
-                      iconName={
-                        item[1]?.category === "stores"
-                          ? "store"
-                          : item[1]?.category === "delivery"
-                          ? "truck-fast"
-                          : item[1]?.category === "services"
-                          ? "gear"
-                          : null
-                      }
-                      isMoreRated={
-                        item[1]?.rating >= 4.7
-                          ? "Most rated"
-                          : item[1]?.rating < 4.7
-                          ? "Average"
-                          : item[1]?.rating <= 2.7
-                          ? "low rated"
-                          : null
-                      }
-                      iconNameRated={
-                        item[1]?.rating >= 4.7
-                          ? "face-smile"
-                          : item[1]?.rating < 4.7
-                          ? "face-meh"
-                          : item[1]?.rating <= 2.7
-                          ? "face-frown"
-                          : null
-                      }
-                      rating={item[1]?.rating}
-                      description={truncate(item[1]?.description)}
-                      price={item[1]?.price}
-                    />
-                  )
-              )}
-            </div>
-          </section>
-          <section className="w-[100%] mb-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-2xl font-[700] flex items-center gap-1 mb-3">
-                <h1>Delivery services</h1>
-              </div>
-              <Link
-                to=""
-                className="text-[#1E1E1E] hover:bg-[#1e1e1e] hover:text-white border p-2 font-[400] transition-all duration-700 ease-in-out"
-              >
-                See all
-              </Link>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 mb-3">
-              {flattenedItems.map(
-                (item) =>
-                  item[1].category === "delivery" && (
-                    <Item
-                      key={item[1]?.itemID}
-                      src={item[1]?.itemImage}
-                      alt={item[1]?.description}
-                      heading={truncateHeader(item[1].itemName)}
-                      iconName={
-                        item[1]?.category === "stores"
-                          ? "store"
-                          : item[1]?.category === "delivery"
-                          ? "truck-fast"
-                          : item[1]?.category === "services"
-                          ? "gear"
-                          : null
-                      }
-                      isMoreRated={
-                        item[1]?.rating >= 4.7
-                          ? "Most rated"
-                          : item[1]?.rating < 4.7
-                          ? "Average"
-                          : item[1]?.rating <= 2.7
-                          ? "low rated"
-                          : null
-                      }
-                      iconNameRated={
-                        item[1]?.rating >= 4.7
-                          ? "face-smile"
-                          : item[1]?.rating < 4.7
-                          ? "face-meh"
-                          : item[1]?.rating <= 2.7
-                          ? "face-frown"
-                          : null
-                      }
-                      rating={item[1]?.rating}
-                      description={truncate(item[1]?.description)}
-                      price={item[1]?.price}
-                    />
-                  )
-              )}
-            </div>
-          </section>
           <section className="w-[100%] mb-5">
             <div className="flex items-center justify-between mb-2">
               <div className="text-2xl font-[700] flex items-center gap-1 mb-3">
@@ -482,12 +366,14 @@ export default class Dashboard extends Component {
                   alt={item[1]?.description}
                   heading={truncateHeader(item[1].itemName)}
                   iconName={
-                    item[1]?.category === "stores"
-                      ? "store"
+                    item[1]?.category === "studios"
+                      ? "camera"
                       : item[1]?.category === "delivery"
                       ? "truck-fast"
-                      : item[1]?.category === "services"
+                      : item[1]?.category === "technician"
                       ? "gear"
+                      : item[1]?.category === "book"
+                      ? "bookmark"
                       : null
                   }
                   isMoreRated={

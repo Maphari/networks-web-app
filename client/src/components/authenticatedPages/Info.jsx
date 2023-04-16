@@ -1,7 +1,8 @@
-export default function () {
+export default function (props) {
+  const { isInformation } = props;
   return (
-    <section>
-      <h1>Section</h1>
+    <section className="w-[15%]">
+      <button onClick={isInformation}>Back to main menu</button>
     </section>
   );
 }

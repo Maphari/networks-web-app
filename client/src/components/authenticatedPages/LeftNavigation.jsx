@@ -52,7 +52,7 @@ export const LeftNavigation = () => {
           ) : (
             <div className="bg-[#8abb3a] w-[40px] h-[40px] flex items-center justify-center rounded-full mr-2">
               <span className="font-bold text-white">
-                {username?.slice(0, 2)}
+                {username?.toUpperCase().slice(0, 2)}
               </span>
             </div>
           )}
@@ -66,7 +66,7 @@ export const LeftNavigation = () => {
           </div>
         </div>
 
-        <div className="my-6 flex flex-col flex-1">
+        <div className="my-4 flex flex-col flex-1">
           <h1 className="text-white text-[15px] font-[400] opacity-60">Menu</h1>
           <div className="my-3">
             <Link
@@ -116,8 +116,18 @@ export const LeftNavigation = () => {
               <i className="fa-solid fa-gear text-xl mr-3"></i>
               <h1 className="font-[300] text-[0.9rem]">settings</h1>
             </Link>
+
+            <Link
+              to="/helper"
+              className={`${
+                location.pathname === "/helper" ? "active" : ""
+              } pl-3 py-2 pr-2 flex items-center link text-white hover:bg-[#07234D] hover:cursor-pointer rounded-lg mb-1`}
+            >
+              <i className="fa-solid fa-handshake-angle text-xl mr-3"></i>
+              <h1 className="font-[300] text-[0.9rem]">Become a helper</h1>
+            </Link>
           </div>
-          <div className="my-6">
+          <div className="my-4">
             <h1 className="text-white text-[15px] font-[400] opacity-60">
               Others
             </h1>
@@ -152,14 +162,9 @@ export const LeftNavigation = () => {
               </Link>
             </div>
           </div>
-          <div className="pl-3 flex items-center">
-            <i className="fa-solid fa-circle-check text-white pr-2"></i>
-            <span className="text-white font-[300] i">
-              {data?.clientID ? "Verified" : "Not verified"}
-            </span>
-          </div>
         </div>
       </div>
     </>
   );
 };
+// 
